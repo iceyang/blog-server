@@ -1,7 +1,7 @@
 BaseCtrl = require './base'
 
 class ArticleCtrl extends BaseCtrl
-  constructor: (model)->
-    @model = model
+  constructor: (models)->
+    @model = models.Article
 
 module.exports = ArticleCtrl

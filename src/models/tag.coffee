@@ -1,6 +1,9 @@
 BaseModel = require './base'
 
 class Tag extends BaseModel
+  @rule:
+    name: {required: true}
+
   @name: 'tag'
 
   constructor: (db)->

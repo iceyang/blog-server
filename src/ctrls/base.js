@@ -6,9 +6,34 @@
     function BaseCtrl() {}
 
     BaseCtrl.prototype.create = function(req, res, next) {
-      var entity;
-      entity = this.model.build(req.body);
+      var entity, err;
+      try {
+        entity = this.model.build(req.body);
+      } catch (_error) {
+        err = _error;
+        next(err);
+      }
       return this.model.save(entity, function(err, result) {
+        if (err) {
+          return next(err);
+        }
+        return res.json(result);
+      });
+    };
+
+    BaseCtrl.prototype.update = function(req, res, next) {
+      return this.model.update(req.body, function(err, result) {
+        if (err) {
+          return next(err);
+        }
+        return res.json(result);
+      });
+    };
+
+    BaseCtrl.prototype.queryById = function(req, res, next) {
+      var id;
+      id = req.params.id;
+      return this.model.findById(id, function(err, result) {
         if (err) {
           return next(err);
         }

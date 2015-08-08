@@ -9,6 +9,12 @@
   Category = (function(superClass) {
     extend(Category, superClass);
 
+    Category.rule = {
+      name: {
+        required: true
+      }
+    };
+
     Category.name = 'category';
 
     function Category(db) {

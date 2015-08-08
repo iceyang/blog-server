@@ -9,6 +9,12 @@
   Tag = (function(superClass) {
     extend(Tag, superClass);
 
+    Tag.rule = {
+      name: {
+        required: true
+      }
+    };
+
     Tag.name = 'tag';
 
     function Tag(db) {

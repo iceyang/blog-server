@@ -9,6 +9,30 @@
   Article = (function(superClass) {
     extend(Article, superClass);
 
+    Article.rule = {
+      category: {
+        required: false
+      },
+      tags: {
+        required: false
+      },
+      title: {
+        required: true
+      },
+      content: {
+        required: true
+      },
+      cover: {
+        required: false
+      },
+      publishTime: {
+        required: false
+      },
+      lastUpdate: {
+        required: false
+      }
+    };
+
     Article.name = 'article';
 
     function Article(db) {

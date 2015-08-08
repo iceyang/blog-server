@@ -5,6 +5,22 @@
   BaseModel = (function() {
     function BaseModel() {}
 
+    BaseModel.prototype.build = function(object) {
+      var entity, key, options, ref;
+      entity = {};
+      ref = this.rule;
+      for (key in ref) {
+        options = ref[key];
+        if (options != null) {
+          if (options.required && !object[key]) {
+            throw new Error(key + " must be required");
+          }
+        }
+        entity[key] = object[key];
+      }
+      return entity;
+    };
+
     BaseModel.prototype.save = function(model, callback) {
       return this.collection.insert(model, function(err, result) {
         var ref;

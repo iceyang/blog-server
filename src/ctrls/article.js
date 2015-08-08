@@ -9,8 +9,8 @@
   ArticleCtrl = (function(superClass) {
     extend(ArticleCtrl, superClass);
 
-    function ArticleCtrl(model) {
-      this.model = model;
+    function ArticleCtrl(models) {
+      this.model = models.Article;
     }
 
     return ArticleCtrl;

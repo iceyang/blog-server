@@ -1,3 +1,4 @@
+async = require 'async'
 express = require 'express'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
@@ -7,9 +8,9 @@ server.use bodyParser.json {}
 server.use bodyParser.urlencoded { extended: false }
 server.use do cookieParser
 
-route = require './route'
-route server
-
-port = 8003
-server.listen port, ()->
-  console.log 'listening at %s', 8003
+init = require './init'
+init server, (err)->
+  return console.log err if err
+  port = 10080
+  server.listen port, ()->
+    console.log 'listening at %s', 10080

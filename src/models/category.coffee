@@ -1,6 +1,9 @@
 BaseModel = require './base'
 
 class Category extends BaseModel
+  @rule:
+    name: {required: true}
+
   @name: 'category'
 
   constructor: (db)->
