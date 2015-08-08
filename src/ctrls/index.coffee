@@ -1,4 +1,4 @@
 module.exports = (models)->
-  ArticleCtrl: new (require './article')(models)
-  CategoryCtrl: new (require './category')(models)
-  TagCtrl: new (require './tag')(models)
+  Article: new (require './article')(models)
+  Category: new (require './category')(models)
+  Tag: new (require './tag')(models)

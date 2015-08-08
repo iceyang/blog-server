@@ -7,7 +7,8 @@
   boxing = function(ctrl) {
     var box, name, value;
     box = {
-      model: ctrl.model
+      model: ctrl.model,
+      params: ctrl.params
     };
     for (name in ctrl) {
       value = ctrl[name];
@@ -25,6 +26,9 @@
               return ctrl[name](req, res, next);
             };
           })(name);
+          break;
+        case 4:
+          box[name] = value;
           break;
         default:
           console.log('unknown handler: %s, args length: %d', name, value.length);
@@ -52,7 +56,7 @@
         'db', function(done, results) {
           var ctrls, models;
           models = (require('./models'))(results.db);
-          ctrls = (require('./controllers'))(models);
+          ctrls = (require('./ctrls'))(models);
           ctrls = boxingControllers(ctrls);
           return done(null, ctrls);
         }

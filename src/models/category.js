@@ -9,16 +9,13 @@
   Category = (function(superClass) {
     extend(Category, superClass);
 
-    Category.rule = {
-      name: {
-        required: true
-      }
-    };
-
-    Category.name = 'category';
-
     function Category(db) {
-      this.collection = db.collection(this.name);
+      this.collection = db.collection('category');
+      this.rule = {
+        name: {
+          required: true
+        }
+      };
     }
 
     return Category;

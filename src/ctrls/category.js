@@ -10,6 +10,7 @@
     extend(CategoryCtrl, superClass);
 
     function CategoryCtrl(models) {
+      this.name = 'category';
       this.model = models.Category;
     }
 

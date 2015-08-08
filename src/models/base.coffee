@@ -1,11 +1,12 @@
 class BaseModel
-  build: (object)->
+  build: (object, callback)->
+    console.log "build model"
     entity = {}
     for key, options of @rule
       if options?
-        throw new Error("#{key} must be required") if options.required && not object[key]
+        return callback new Error("#{key} must be required") if options.required && not object[key]
       entity[key] = object[key]
-    return entity
+    callback null, entity
 
   save: (model, callback)->
     @collection.insert model, (err, result)->

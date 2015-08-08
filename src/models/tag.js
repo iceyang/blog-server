@@ -9,16 +9,13 @@
   Tag = (function(superClass) {
     extend(Tag, superClass);
 
-    Tag.rule = {
-      name: {
-        required: true
-      }
-    };
-
-    Tag.name = 'tag';
-
     function Tag(db) {
-      this.collection = db.collection(this.name);
+      this.collection = db.collection('tag');
+      this.rule = {
+        name: {
+          required: true
+        }
+      };
     }
 
     return Tag;

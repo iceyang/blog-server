@@ -1,12 +1,9 @@
 BaseModel = require './base'
 
 class Tag extends BaseModel
-  @rule:
-    name: {required: true}
-
-  @name: 'tag'
-
   constructor: (db)->
-    @collection = db.collection @name
+    @collection = db.collection 'tag'
+    @rule =
+      name: {required: true}
 
 module.exports = Tag

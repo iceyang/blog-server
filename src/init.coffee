@@ -1,14 +1,17 @@
 async = require 'async'
 
 boxing = (ctrl)->
-  box = {model: ctrl.model}
+  box = {model: ctrl.model, params:ctrl.params}
   for name, value of ctrl
     continue unless typeof value is 'function'
     continue if name is 'constructor'
     switch value.length
-      when 3 then box[name] = do (name) -> (req, res, next) ->
-        console.log '%s handler:%s', ctrl.name, name
-        ctrl[name] req, res, next
+      when 3
+        box[name] = do (name) -> (req, res, next) ->
+          console.log '%s handler:%s', ctrl.name, name
+          ctrl[name] req, res, next
+      when 4
+        box[name] = value #(req, res, next, id) -> model[name] req, res, next, id
       else console.log 'unknown handler: %s, args length: %d', name, value.length
   return box
 
@@ -24,7 +27,7 @@ module.exports = (server, callback)->
       (require './db').init done
     'ctrls': ['db', (done, results)->
       models = (require './models')(results.db)
-      ctrls = (require './controllers')(models)
+      ctrls = (require './ctrls')(models)
       ctrls = boxingControllers ctrls
       done null, ctrls
     ]

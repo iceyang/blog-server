@@ -4,7 +4,7 @@
 
   MongoClient = require('mongodb').MongoClient;
 
-  url = 'mongodb://iceyang:iceyang1007#gmail.com@localhost:27025/blog';
+  url = 'mongodb://blog:iceyang1007#gmail.com@iceyang.digital.com:27025/blog';
 
   module.exports = {
     init: function(callback) {

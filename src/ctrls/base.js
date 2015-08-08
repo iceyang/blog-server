@@ -6,19 +6,19 @@
     function BaseCtrl() {}
 
     BaseCtrl.prototype.create = function(req, res, next) {
-      var entity, err;
-      try {
-        entity = this.model.build(req.body);
-      } catch (_error) {
-        err = _error;
-        next(err);
-      }
-      return this.model.save(entity, function(err, result) {
-        if (err) {
-          return next(err);
-        }
-        return res.json(result);
-      });
+      return this.model.build(req.body, (function(_this) {
+        return function(err, entity) {
+          if (err) {
+            return next(err);
+          }
+          return _this.model.save(entity, function(err, result) {
+            if (err) {
+              return next(err);
+            }
+            return res.json(result);
+          });
+        };
+      })(this));
     };
 
     BaseCtrl.prototype.update = function(req, res, next) {

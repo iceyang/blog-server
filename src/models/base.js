@@ -5,20 +5,21 @@
   BaseModel = (function() {
     function BaseModel() {}
 
-    BaseModel.prototype.build = function(object) {
+    BaseModel.prototype.build = function(object, callback) {
       var entity, key, options, ref;
+      console.log("build model");
       entity = {};
       ref = this.rule;
       for (key in ref) {
         options = ref[key];
         if (options != null) {
           if (options.required && !object[key]) {
-            throw new Error(key + " must be required");
+            return callback(new Error(key + " must be required"));
           }
         }
         entity[key] = object[key];
       }
-      return entity;
+      return callback(null, entity);
     };
 
     BaseModel.prototype.save = function(model, callback) {

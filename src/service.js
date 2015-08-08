@@ -25,7 +25,9 @@
   init(server, function(err) {
     var port;
     if (err) {
-      return console.log(err);
+      console.log(err);
+      console.log(err.stack);
+      return;
     }
     port = 10080;
     return server.listen(port, function() {

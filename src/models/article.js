@@ -9,34 +9,31 @@
   Article = (function(superClass) {
     extend(Article, superClass);
 
-    Article.rule = {
-      category: {
-        required: false
-      },
-      tags: {
-        required: false
-      },
-      title: {
-        required: true
-      },
-      content: {
-        required: true
-      },
-      cover: {
-        required: false
-      },
-      publishTime: {
-        required: false
-      },
-      lastUpdate: {
-        required: false
-      }
-    };
-
-    Article.name = 'article';
-
     function Article(db) {
-      this.collection = db.collection(this.name);
+      this.collection = db.collection('article');
+      this.rule = {
+        category: {
+          required: false
+        },
+        tags: {
+          required: false
+        },
+        title: {
+          required: true
+        },
+        content: {
+          required: true
+        },
+        cover: {
+          required: false
+        },
+        publishTime: {
+          required: false
+        },
+        lastUpdate: {
+          required: false
+        }
+      };
     }
 
     return Article;

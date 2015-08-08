@@ -10,6 +10,7 @@
     extend(ArticleCtrl, superClass);
 
     function ArticleCtrl(models) {
+      this.name = 'article';
       this.model = models.Article;
     }
 

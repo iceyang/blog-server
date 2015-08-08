@@ -2,9 +2,9 @@
 (function() {
   module.exports = function(models) {
     return {
-      ArticleCtrl: new (require('./article'))(models),
-      CategoryCtrl: new (require('./category'))(models),
-      TagCtrl: new (require('./tag'))(models)
+      Article: new (require('./article'))(models),
+      Category: new (require('./category'))(models),
+      Tag: new (require('./tag'))(models)
     };
   };
 
