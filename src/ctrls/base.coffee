@@ -1,13 +1,24 @@
+utils = require '../utils'
+
 class BaseCtrl
-  create: (req, res, next)->
-    @model.build req.body, (err, entity)=>
-      return next err if err
-      @model.save entity, (err, result)->
+  params:
+    getId: (req, res, next, id) ->
+      utils.buildObjectID id, (err, result)->
         return next err if err
-        res.json result
+        console.log "id:", result
+        req.params.id = result
+        do next
+
+  create: (req, res, next)->
+    @model.save req.body, (err, result)->
+      return next err if err
+      res.json result
 
   update: (req, res, next)->
-    @model.update req.body, (err, result)->
+    id = req.params.id
+    entity = req.body
+    entity.id = id
+    @model.update entity, (err, result)->
       return next err if err
       res.json result
 
