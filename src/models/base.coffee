@@ -26,19 +26,25 @@ class BaseModel
   update: (model, callback)->
     _id = model.id
     delete model.id
-    async.series [
-      (done)=> @checkFields model, done
-      (done)=>
+    async.auto
+      "check": (done)=> @checkFields model, done
+      "update": ['check', (done)=>
         @collection.findOneAndUpdate {_id: _id}, {$set: model}, {returnOriginal:false, upsert: false}, (err, result) ->
-          return done err if err
-          callback null, result?.value or {}
-    ], (err)->
-      callback err if err
+          done err, result?.value or {}
+      ]
+      (err, results)->
+        callback err, results.update
 
   remove: (model, callback)->
     @collection.remove {_id: model._id}, callback
 
   findById: (id, callback)->
     @collection.findOne {_id: id}, callback
+
+  find: (selector, options, callback)->
+    @collection.find(selector, options).toArray callback
+
+  count: (selector, callback)->
+    @collection.count selector, callback
 
 module.exports = BaseModel

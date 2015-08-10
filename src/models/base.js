@@ -53,32 +53,30 @@
       var _id;
       _id = model.id;
       delete model.id;
-      return async.series([
-        (function(_this) {
+      return async.auto({
+        "check": (function(_this) {
           return function(done) {
             return _this.checkFields(model, done);
           };
-        })(this), (function(_this) {
-          return function(done) {
-            return _this.collection.findOneAndUpdate({
-              _id: _id
-            }, {
-              $set: model
-            }, {
-              returnOriginal: false,
-              upsert: false
-            }, function(err, result) {
-              if (err) {
-                return done(err);
-              }
-              return callback(null, (result != null ? result.value : void 0) || {});
-            });
-          };
-        })(this)
-      ], function(err) {
-        if (err) {
-          return callback(err);
-        }
+        })(this),
+        "update": [
+          'check', (function(_this) {
+            return function(done) {
+              return _this.collection.findOneAndUpdate({
+                _id: _id
+              }, {
+                $set: model
+              }, {
+                returnOriginal: false,
+                upsert: false
+              }, function(err, result) {
+                return done(err, (result != null ? result.value : void 0) || {});
+              });
+            };
+          })(this)
+        ]
+      }, function(err, results) {
+        return callback(err, results.update);
       });
     };
 
@@ -92,6 +90,14 @@
       return this.collection.findOne({
         _id: id
       }, callback);
+    };
+
+    BaseModel.prototype.find = function(selector, options, callback) {
+      return this.collection.find(selector, options).toArray(callback);
+    };
+
+    BaseModel.prototype.count = function(selector, callback) {
+      return this.collection.count(selector, callback);
     };
 
     return BaseModel;
