@@ -95,6 +95,18 @@
       return this.query(req, res, next);
     };
 
+    BaseCtrl.prototype.all = function(req, res, next) {
+      var options, selector;
+      selector = {};
+      options = {};
+      return this.model.find(selector, options, function(err, results) {
+        if (err) {
+          return next(err);
+        }
+        return res.json(results);
+      });
+    };
+
     return BaseCtrl;
 
   })();

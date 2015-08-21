@@ -52,4 +52,11 @@ class BaseCtrl
     req.options.limit = req.query?.limit || 10
     @query req, res, next
 
+  all: (req, res, next)->
+    selector = {}
+    options = {}
+    @model.find selector, options, (err, results)->
+      return next err if err
+      res.json results
+
 module.exports = BaseCtrl
