@@ -17,3 +17,4 @@ module.exports = (server, ctrls)->
   server.get  '/articles/:articleId', ctrls.Article.queryById
   server.post '/articles', ctrls.Article.create
   server.put  '/articles/:articleId', ctrls.Article.update
+  server.post '/articles/query', ctrls.Article.queryCondition, ctrls.Article.query

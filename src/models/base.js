@@ -96,7 +96,10 @@
       return this.collection.find(selector, options).toArray(callback);
     };
 
-    BaseModel.prototype.count = function(selector, callback) {
+    BaseModel.prototype.count = function(selector, options, callback) {
+      if (!callback) {
+        callback = options;
+      }
       return this.collection.count(selector, callback);
     };
 

@@ -16,7 +16,8 @@
     server.get('/articles/next/:articleId', ctrls.Article.next);
     server.get('/articles/:articleId', ctrls.Article.queryById);
     server.post('/articles', ctrls.Article.create);
-    return server.put('/articles/:articleId', ctrls.Article.update);
+    server.put('/articles/:articleId', ctrls.Article.update);
+    return server.post('/articles/query', ctrls.Article.queryCondition, ctrls.Article.query);
   };
 
 }).call(this);

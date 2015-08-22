@@ -71,12 +71,14 @@
           };
         })(this)
       }, function(err, results) {
+        var skip;
         if (err) {
           return next(err);
         }
+        skip = options.skip ? options.skip + options.limit : options.limit;
         return res.json({
           list: results.list,
-          residue: Math.max(0, results.count - options.limit),
+          residue: Math.max(0, results.count - skip),
           total: results.count
         });
       });

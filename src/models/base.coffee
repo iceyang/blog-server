@@ -44,7 +44,8 @@ class BaseModel
   find: (selector, options, callback)->
     @collection.find(selector, options).toArray callback
 
-  count: (selector, callback)->
+  count: (selector, options, callback)->
+    callback = options unless callback
     @collection.count selector, callback
 
 module.exports = BaseModel

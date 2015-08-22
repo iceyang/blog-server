@@ -7,6 +7,15 @@ class ArticleCtrl extends BaseCtrl
     @name = 'article'
     @model = models.Article
 
+  queryCondition: (req, res, next) ->
+    fields = {}
+    limit = req.body.limit or 20
+    current = Math.max 1, req.body.current
+    skip = (current - 1) * limit
+    req.selector = {}
+    req.options = {fields, skip, limit, sort:[['_id',-1]]}
+    do next
+
   create: (req, res, next)->
     req.body.publishTime = new Date()
     req.body.lastUpdate = new Date()

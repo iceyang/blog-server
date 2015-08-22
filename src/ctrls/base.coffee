@@ -40,9 +40,10 @@ class BaseCtrl
         @model.count selector, done
       (err, results)->
         return next err if err
+        skip = if options.skip then options.skip + options.limit else options.limit
         res.json
           list: results.list
-          residue: Math.max 0, results.count - options.limit
+          residue: Math.max 0, results.count - skip
           total: results.count
 
   next: (req, res, next)->

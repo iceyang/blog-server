@@ -16,6 +16,22 @@
       this.model = models.Article;
     }
 
+    ArticleCtrl.prototype.queryCondition = function(req, res, next) {
+      var current, fields, limit, skip;
+      fields = {};
+      limit = req.body.limit || 20;
+      current = Math.max(1, req.body.current);
+      skip = (current - 1) * limit;
+      req.selector = {};
+      req.options = {
+        fields: fields,
+        skip: skip,
+        limit: limit,
+        sort: [['_id', -1]]
+      };
+      return next();
+    };
+
     ArticleCtrl.prototype.create = function(req, res, next) {
       req.body.publishTime = new Date();
       req.body.lastUpdate = new Date();
