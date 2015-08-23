@@ -39,6 +39,7 @@
     };
 
     ArticleCtrl.prototype.update = function(req, res, next) {
+      delete req.body.publishTime;
       req.body.lastUpdate = new Date();
       return ArticleCtrl.__super__.update.call(this, req, res, next);
     };
@@ -49,6 +50,12 @@
       return this.model.findById(id, function(err, result) {
         if (err) {
           return next(err);
+        }
+        if (!result) {
+          return res.json({});
+        }
+        if (req.params.dontNeedParseMarkdown) {
+          return res.json(result);
         }
         result.content = marked(result.content);
         return res.json(result);
@@ -68,7 +75,8 @@
     ArticleCtrl.prototype.next = function(req, res, next) {
       req.options = {
         fields: {
-          content: false
+          content: false,
+          hidden: false
         }
       };
       return ArticleCtrl.__super__.next.call(this, req, res, next);

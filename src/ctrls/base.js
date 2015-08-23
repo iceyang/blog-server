@@ -35,6 +35,7 @@
       var entity, id;
       id = req.params.id;
       entity = req.body;
+      delete entity._id;
       entity.id = id;
       return this.model.update(entity, function(err, result) {
         if (err) {

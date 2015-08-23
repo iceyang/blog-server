@@ -1,3 +1,7 @@
+dontNeedParseMarkdown = (req, res, next)->
+  req.params.dontNeedParseMarkdown = true
+  do next
+
 module.exports = (server, ctrls)->
   server.param 'tagId', ctrls.Tag.params.getId
   server.post '/tags', ctrls.Tag.create
@@ -14,7 +18,7 @@ module.exports = (server, ctrls)->
   server.param 'articleId', ctrls.Article.params.getId
   server.get  '/articles/first', ctrls.Article.next
   server.get  '/articles/next/:articleId', ctrls.Article.next
-  server.get  '/articles/:articleId', ctrls.Article.queryById
+  server.get  '/articles/:articleId', dontNeedParseMarkdown, ctrls.Article.queryById
   server.post '/articles', ctrls.Article.create
   server.put  '/articles/:articleId', ctrls.Article.update
   server.post '/articles/query', ctrls.Article.queryCondition, ctrls.Article.query

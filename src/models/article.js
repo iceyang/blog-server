@@ -21,6 +21,9 @@
         title: {
           required: true
         },
+        hidden: {
+          required: false
+        },
         content: {
           required: true
         },

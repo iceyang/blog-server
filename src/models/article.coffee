@@ -7,6 +7,7 @@ class Article extends BaseModel
       category: {required: false}
       tags: {required: false}
       title: {required: true}
+      hidden: {required: false}
       content: {required: true}
       cover: {required: false} # 封面
       publishTime: {required: false}

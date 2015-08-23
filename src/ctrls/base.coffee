@@ -19,6 +19,7 @@ class BaseCtrl
   update: (req, res, next)->
     id = req.params.id
     entity = req.body
+    delete entity._id
     entity.id = id
     @model.update entity, (err, result)->
       return next err if err

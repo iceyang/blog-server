@@ -22,6 +22,7 @@ class ArticleCtrl extends BaseCtrl
     super req, res, next
 
   update: (req, res, next)->
+    delete req.body.publishTime
     req.body.lastUpdate = new Date()
     super req, res, next
 
@@ -29,6 +30,8 @@ class ArticleCtrl extends BaseCtrl
     id = req.params.id
     @model.findById id, (err, result)->
       return next err if err
+      return res.json {} unless result
+      return res.json result if req.params.dontNeedParseMarkdown
       result.content = marked result.content
       res.json result
 
@@ -43,6 +46,7 @@ class ArticleCtrl extends BaseCtrl
     req.options =
       fields:
         content: false
+        hidden: false
     super req, res, next
 
 module.exports = ArticleCtrl
