@@ -1,6 +1,6 @@
 MongoClient = require('mongodb').MongoClient
 
-url = 'mongodb://blog:iceyang1007#gmail.com@iceyang.digital.com:27025/blog'
+url = (require './config').dbUrl
 
 module.exports =
   init: (callback)->
