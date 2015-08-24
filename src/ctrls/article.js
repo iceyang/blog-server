@@ -73,6 +73,8 @@
     };
 
     ArticleCtrl.prototype.next = function(req, res, next) {
+      req.selector = req.selector || {};
+      req.selector.hidden = false;
       req.options = {
         fields: {
           content: false,

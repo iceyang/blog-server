@@ -43,6 +43,8 @@ class ArticleCtrl extends BaseCtrl
     @query req, res, next
 
   next: (req, res, next)->
+    req.selector = req.selector || {}
+    req.selector.hidden = false
     req.options =
       fields:
         content: false

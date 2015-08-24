@@ -22,3 +22,6 @@ module.exports = (server, ctrls)->
   server.post '/articles', ctrls.Article.create
   server.put  '/articles/:articleId', ctrls.Article.update
   server.post '/articles/query', ctrls.Article.queryCondition, ctrls.Article.query
+
+  #the route which has the prefix api is used for frontend.
+  server.get '/api/articles/:articleId', ctrls.Article.queryById

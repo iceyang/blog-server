@@ -24,7 +24,8 @@
     server.get('/articles/:articleId', dontNeedParseMarkdown, ctrls.Article.queryById);
     server.post('/articles', ctrls.Article.create);
     server.put('/articles/:articleId', ctrls.Article.update);
-    return server.post('/articles/query', ctrls.Article.queryCondition, ctrls.Article.query);
+    server.post('/articles/query', ctrls.Article.queryCondition, ctrls.Article.query);
+    return server.get('/api/articles/:articleId', ctrls.Article.queryById);
   };
 
 }).call(this);
